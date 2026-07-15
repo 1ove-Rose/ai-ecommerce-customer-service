@@ -300,20 +300,11 @@ pytest
 
 ## 常见问题
 
-### 1. 后端提示找不到 `api.main`
-
-请确认命令在项目根目录执行：
-
-```powershell
-cd "C:\Users\27295\smart-cs-multi-agent\AI E-commerce Customer Service"
-python -m api.main
-```
-
-### 2. DeepSeek 或 OpenAI 认证失败
+### 1. DeepSeek 或 OpenAI 认证失败
 
 检查 `.env` 中的 `OPENAI_API_KEY`、`OPENAI_BASE_URL` 和 `OPENAI_MODEL`，修改后重启后端。
 
-### 3. Redis 连接失败
+### 2. Redis 连接失败
 
 确认 Redis 已启动，或使用：
 
@@ -321,7 +312,7 @@ python -m api.main
 docker compose up -d redis
 ```
 
-### 4. PostgreSQL 连接失败
+### 3. PostgreSQL 连接失败
 
 确认数据库、用户名、密码和端口与 `DATABASE_URL` 一致。如果使用 Docker Compose，默认容器内连接为：
 
@@ -335,7 +326,7 @@ DATABASE_URL=postgresql+asyncpg://app:app@postgres:5432/smartcs
 DATABASE_URL=postgresql+asyncpg://postgres:123456@127.0.0.1:5432/smartcs
 ```
 
-### 5. 本地 embedding 模型缺失
+### 4. 本地 embedding 模型缺失
 
 项目使用本地下载的 `bge-small-zh-v1.5`，默认读取：
 
@@ -350,20 +341,3 @@ LOCAL_EMBEDDING_MODEL=你的本地模型路径
 ```
 
 注意：模型权重文件通常较大，`.gitignore` 已排除 `.bin`、`.safetensors` 等文件，避免上传到 GitHub。
-
-## GitHub 提交注意事项
-
-已配置 `.gitignore` 排除以下内容：
-
-- `.env`、`frontend/.env.local` 等真实密钥配置。
-- `frontend/.next/`、`node_modules/` 等构建产物和依赖目录。
-- Python 缓存、测试缓存、本地数据库文件。
-- `.bin`、`.safetensors`、`.onnx`、`.pt`、`.pth` 等大模型权重文件。
-
-上传前可检查：
-
-```powershell
-git status --short
-```
-
-如果看到 `.env` 出现在待提交列表，应立即停止提交并检查 `.gitignore`。
